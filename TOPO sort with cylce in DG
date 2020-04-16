@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+vector<char> color;
+vector<ll> parent;
+vector<ll>vec[100005];
+vector<ll> ans;
+bool visited[100005];
+int cycle_start, cycle_end;
+ll N=100005;
+
+bool cycleDG(ll v) {
+    color[v] = 1;
+    for (auto u : vec[v]) {
+        if (color[u] == 0) {
+            parent[u] = v;
+            if (cycleDG(u))
+                return true;
+        } else if (color[u] == 1) {
+            cycle_end = v;
+            cycle_start = u;
+            return true;
+        }
+    }
+    color[v] = 2;
+    return false;
+}
+
+
+void topo(int v) {
+    
+    for (int u : vec[v]) {
+        if (!visited[u])
+        {
+        	visited[u]=true;
+        	topo(u);
+		}
+            
+    }
+    ans.push_back(v);
+}
+
+int main()
+{
+	color.assign(N, 0);
+    parent.assign(N, -1);
+    cycle_start = -1;
+    memset(visited,false,sizeof(visited));
+    ll n,m,i,j,a,b;
+    cin>>n>>m;
+    for(i=0;i<m;i++)
+    {
+    	cin>>a>>b;
+    	vec[a].push_back(b);
+	}
+    
+    for(i=1;i<=n;i++)
+    {
+    	if(color[i]==0&&cycleDG(i))
+    	{
+    		cout<<"Sandro fails.";
+    		return 0;
+		}
+	}
+/*	for(i=1;i<=n;i++)
+	{
+	    sort(vec[i].begin(),vec[i].end(),greater<int>());
+	}*/
+	vector<ll>ans2;
+	for(i=1;i<=n;i++)
+	{
+		if(!visited[i])
+		{
+		  //  ans.clear();
+			visited[i]=true;
+			topo(i);
+		//	reverse(ans.begin(),ans.end());
+		//	for(j=0;j<ans.size();j++)
+		//	ans2.push_back(ans[j]);
+		}
+	}
+	reverse(ans.begin(),ans.end());
+	for(i=0;i<ans.size();i++)
+	{
+		cout<<ans[i]<<" ";
+	}
+	
+    
+    
+    
+}
