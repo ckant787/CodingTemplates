@@ -1,0 +1,14 @@
+ll pow_mod(ll n,ll m)
+{
+	if(m==0)
+	return 1;
+	if(m==1)
+	return n;
+	ll z=pow_mod(n,m/2);
+	z%=MOD;
+	z=z*z;
+	z%=MOD;
+	if(m%2==0)
+	return z;
+	return (n*z)%MOD;
+}
