@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+ll n,m;
+ll parent[100005];
+ll size[100005];
+int find_parent(int v) {
+    if (v == parent[v])
+        return v;
+    return parent[v] = find_parent(parent[v]);
+}
+
+
+void make_set(int v) {
+    parent[v] = v;
+    size[v] = 1;
+}
+
+void union_sets(int a, int b) {
+    ll pa = find_parent(a);
+    ll pb = find_parent(b);
+    if (pa != pb) {
+        if (size[pa] < size[pb])
+            swap(pa, pb);
+        parent[pb] = pa;
+        size[pa] += size[pb];
+    }
+}
+
+int main()
+{
+	ll i,j,u,v;
+	cin>>n>>m;
+	vector<pair<ll,ll> >edges;
+	for(i=0;i<m;i++)
+	{
+		cin>>u>>v;
+		edges.push_back(make_pair(u,v));
+	}
+	for(i=1;i<=n;i++)
+	{
+		make_set(i);
+	}
+	
+	
+	for(i=0;i<m;i++)
+	{
+		u=edges[i].first;
+		v=edges[i].second;
+		union_sets(u,v);
+		
+	}
+	for(i=1;i<=n;i++)
+	{
+		ll z=size[find_parent(i)];
+		cout<<z<<" ";
+		
+	}
+	
+}
