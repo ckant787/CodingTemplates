@@ -1,5 +1,6 @@
 // Function to update any index 
-ll fen[100005]={0};
+//initialize fen to 0;
+ll fen[100005];
  void update(ll ind, ll val)
 {
 	for(ll i = ind;i<=maxi; i+= i & -i)
