@@ -16,7 +16,8 @@ using namespace std;
 #define for1(i, n) for (int i = 1; i <= n; i++)
 #define loop(i,a,b) for (int i = a; i < b; i++)
 #define bloop(i,a,b) for (int i = a ; i>=b;i--)
-
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
 const int dx[4] = { -1, 1, 0, 0};
 const int dy[4] = {0, 0, -1, 1};
 int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
