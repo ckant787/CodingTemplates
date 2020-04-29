@@ -3,7 +3,7 @@
 using namespace std;
 ll n,m;
 ll parent[100005];
-ll size[100005];
+ll siz[100005];
 ll find_parent(ll v) {
     if (v == parent[v])
         return v;
@@ -13,17 +13,17 @@ ll find_parent(ll v) {
 
 void make_set(ll v) {
     parent[v] = v;
-    size[v] = 1;
+    siz[v] = 1;
 }
 
 void union_sets(ll a, ll b) {
     ll pa = find_parent(a);
     ll pb = find_parent(b);
     if (pa != pb) {
-        if (size[pa] < size[pb])
+        if (siz[pa] < siz[pb])
             swap(pa, pb);
         parent[pb] = pa;
-        size[pa] += size[pb];
+        siz[pa] += siz[pb];
     }
 }
 
