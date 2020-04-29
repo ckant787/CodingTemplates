@@ -52,7 +52,7 @@ int main()
 	}
 	for(i=1;i<=n;i++)
 	{
-		ll z=size[find_parent(i)];
+		ll z=siz[find_parent(i)];
 		cout<<z<<" ";
 		
 	}
