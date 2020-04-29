@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+int main()
+{
+	ll n,i,j,q;
+	cin>>n;
+	ll arr[n];
+	for(i=0;i<n;i++)
+	{
+		cin>>arr[i];
+	}
+		ll blck_size=sqrt(n);
+
+	ll blck[1000]={0};
+	for(i=0;i<n;i++)
+	{
+		blck[i/blck_size]+=arr[i];
+	}
+	for(i=0;i<blck_size+10;i++)
+	cout<<blck[i]<<" ";
+	
+	cin>>q;
+	while(q--)
+	{
+		ll type;
+		cin>>type;
+		if(type==1)
+		{
+			
+		
+		ll l,r;
+		cin>>l>>r;
+			i=l;
+			ll sum=0;
+			while(i<=r&&i%blck_size!=0)
+			{
+				sum+=arr[i];
+				i++;
+				cout<<sum<<endl;
+			}
+			while(i+blck_size<=r)
+			{
+				sum+=blck[i/blck_size];
+				i+=blck_size;
+				cout<<sum<<endl;
+			}
+				while(i<=r)
+			{
+				sum+=arr[i];
+				i++;
+			}
+			cout<<sum<<endl;
+	}
+	else
+	{
+		ll ind,val;
+		cin>>ind>>val;
+		ll diff=val-arr[ind];
+		arr[ind]+=val;
+		blck[ind/blck_size]+=diff;
+	}
+		
+		
+	}
+	
+	
+	
+}
