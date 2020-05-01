@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+
+#define MOD 998244353
+#define INT_MAXI 9000000000000000000
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+vector<ll>vec[105];
+set<ll>s;
+
+//vector<ll>vec[100005];
+bool visited[105];
+//vector<pair<ll,ll> >vec2;
+ll tin[105];
+ll low[105];
+int timer,c;
+
+void dfs(ll v, ll p ) {
+ 
+    tin[v] =  timer++;
+    low[v]=timer++;
+    int children=0;
+    for (auto to : vec[v]) {
+    	if (to == p) continue;
+    	
+        if (visited[to]) {
+            low[v] = min(low[v], tin[to]);
+        } 
+		else 
+		{
+        	visited[to]=true;
+            dfs(to, v);
+            low[v] = min(low[v], low[to]);
+            if (low[to] >= tin[v]&&p!=-1)
+                s.insert(v);
+                children++;
+        }
+    }
+    if(p==-1&&children>1)
+    s.insert(v);
+    
+}
+
+int main()
+{
+   
+     fio;
+     ll n,i,j,m,q,u,v,x;
+     cin>>n>>m;
+     
+     for(i=0;i<m;i++)
+     {
+     	cin>>u>>v;
+     	vec[u].push_back(v);
+     	vec[v].push_back(u);
+	 }
+	 timer=0;
+	memset(visited,false,sizeof(visited));
+	memset(tin,-1,sizeof(tin));
+	memset(low,-1,sizeof(low));
+	
+	for(i=1;i<=n;i++)
+	{
+	    if(visited[i]==false)
+	    {
+	        visited[i]=true;
+	        dfs(i,-1);
+	    }
+	}
+	cin>>q;
+	while(q--)
+	{
+		cin>>x;
+		if(s.find(x)==s.end())
+		{
+			cout<<"Not Satisfied"<<endl;
+		}
+		else
+		{
+			cout<<"Satisfied"<<" "<<vec[x].size()<<endl;
+		}
+		
+	}
+	
+}
+  
+  
+  
+ 
+	
+    
+ 	
