@@ -99,7 +99,7 @@ ll sum(ll node,ll low,ll high,ll l,ll r)
 	
 	ll mid=(low+high)>>1;
 	
-	return sum(2*node+1,low,mid,l,r)+(2*node+2,mid+1,high,l,r);
+	return sum(2*node+1,low,mid,l,r)+sum(2*node+2,mid+1,high,l,r);
 	
 	
 }
