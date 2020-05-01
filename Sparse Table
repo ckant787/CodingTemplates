@@ -48,7 +48,7 @@ void buildSparseTableGcd()
         // Compute minimum value for all intervals with 
         // size 2^j 
         for (int i = 0; (i + (1 << j) - 1) < n; i++) 
-          sparse1[i][j] = gcd(sparse1[i][j - 1], sparse1[i + (1 << (j - 1))][j - 1]); 
+          sparse1[i][j] = __gcd(sparse1[i][j - 1], sparse1[i + (1 << (j - 1))][j - 1]); 
     } 
 } 
 
@@ -62,5 +62,5 @@ int querygcd(int L, int R)
   
     // Compute minimum of last 2^j elements with first 
     // 2^j elements in range. 
-    return gcd(sparse1[L][j], sparse1[R - (1 << j) + 1][j]); 
+    return __gcd(sparse1[L][j], sparse1[R - (1 << j) + 1][j]); 
 }  
