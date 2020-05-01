@@ -5,12 +5,12 @@ using namespace std;
 #define mp make_pair
 #define fi first
 #define se second
-#define pb emplace_back
+#define pb push_back
 #define endl "\n"
 #define maxpq priority_queue<ll>
 #define minpq priority_queue<ll, vector<ll>, greater<ll> >
 #define vi vector<ll>
-#define pii pair<int, int>
+#define pii pair<ll, ll>
 #define vii vector<pii>
 #define for0(i, n) for (int i = 0; i < n; i++)
 #define for1(i, n) for (int i = 1; i <= n; i++)
