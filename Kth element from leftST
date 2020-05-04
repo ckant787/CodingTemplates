@@ -1,0 +1,137 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+
+ll seg[3000000]={0},lazy[3000000]={0};
+
+void build(ll node,ll low,ll high)
+{
+    if(low==high)
+    {
+        seg[node]=1;
+        return ;
+    }
+    ll mid=(high+low)/2;
+    
+    build(2*node+1,low,mid);
+  build(2*node+2,mid+1,high);
+   
+   seg[node]=seg[2*node+1]+seg[2*node+2];
+    
+}
+
+ll query(ll node,ll low,ll high,ll k)
+{
+	
+	if(low==high)
+	{
+		seg[node]=0;
+		return low;
+	}
+	
+	ll a;
+	ll mid=(low+high)>>1;
+	if(k<=seg[2*node+1])
+	{
+		a=query(2*node+1,low,mid,k);
+	}
+	else
+	{
+		a=query(2*node+2,mid+1,high,k-seg[2*node+1]);
+	}
+	seg[node]=seg[2*node+1]+seg[2*node+2];
+	return a;
+	
+}
+
+
+
+int main()
+{
+  
+   fio;
+   ll n,q,i,j,l,r,t,k;
+   cin>>t;
+   while(t--)
+   {
+   	memset(seg,0,sizeof(seg));
+   	  cin>>n;
+   	  vector<string>vec1;
+   	  build(0,0,n-1);
+   	  for(i=0;i<n;i++)
+   	  {
+   	  	string str;
+   	  	cin>>str;
+   	  	vec1.pb(str);
+		 }
+		 vector<pair<string,ll> >vec2;
+		 for(i=0;i<n;i++)
+		 {
+		 	ll x;
+		 	cin>>x;
+		 	vec2.pb(mp(vec1[i],x));
+		 	
+		 }
+		 ll maxi=0;
+		 for(i=0;i<n-1;i++)
+		 {
+		 	
+		 	cin>>k;
+		 	
+		 	ll index=query(0,0,n-1,k);
+		 	string ans=vec2[index].fi;
+		 	cout<<ans<<" ";
+		 	maxi=max(maxi,vec2[index].se);
+		 	cout<<maxi<<endl;
+		 	
+		 	
+		 }
+		 k=1;
+		 	ll index=query(0,0,n-1,k);
+		 	string ans=vec2[index].fi;
+		 	cout<<ans<<" ";
+		 	maxi=max(maxi,vec2[index].se);
+		 	cout<<maxi<<endl;
+		 
+	cout<<endl;
+		 
+		 
+		 
+   	
+   	
+   }
+  
+    
+	
+    	
+}
+
+
+
+
+
+
+
+ 
