@@ -1,0 +1,128 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+ll arr[500005],seg[3000000]={0},lazy[3000000]={0};
+
+void build(ll node,ll low,ll high)
+{
+    if(low==high)
+    {
+        seg[node]=0;
+        return ;
+    }
+    ll mid=(high+low)/2;
+    
+    build(2*node+1,low,mid);
+  build(2*node+2,mid+1,high);
+   
+   seg[node]=seg[2*node+1]+seg[2*node+2];
+    
+}
+
+ll sum(ll node,ll low,ll high,ll l,ll r)
+{
+    if(l>high||r<low)
+    return 0;
+    if(low>=l&&high<=r)
+    return seg[node];
+    
+    ll mid=(low+high)>>1;
+    return sum(2*node+1,low,mid,l,r)+sum(2*node+2,mid+1,high,l,r);
+   
+}
+void update(ll node,ll low,ll high,ll pos,ll diff)
+{
+	if(low>high)
+	return;
+   if(low==high)
+   {
+   	seg[node]+=diff;
+   	return;
+   }
+   ll mid=(low+high)>>1;
+   if(pos<=mid)
+   {
+   	update(2*node+1,low,mid,pos,diff);
+   	
+   }
+   else
+   {
+   	update(2*node+2,mid+1,high,pos,diff);
+   }
+   seg[node]=seg[2*node+1]+seg[2*node+2];
+   
+   
+   
+}
+
+int main()
+{
+  
+   fio;
+   ll n,q,i,j,l,r;
+   cin>>n>>q;
+   for(i=0;i<n;i++)
+   {
+   	arr[i]=0;
+   }
+   build(0,0,n-1);
+   
+   while(q--)
+   {
+   	ll type,ind;
+   	cin>>type;
+   	if(type==1)
+   	{
+   		cin>>ind;
+   		ind--;
+   		ll val=2*arr[ind]+1;
+   	
+		   update(0,0,n-1,ind,1);
+		   arr[ind]=2*arr[ind]+1;
+	   }
+	   else if(type==2)
+	   {
+	   		cin>>ind;
+   		ind--;
+   	     ll z=arr[ind]&1;
+   	     if(z==1)
+		   update(0,0,n-1,ind,-1);
+		   arr[ind]=arr[ind]/2;
+	   }
+	   else if(type==3)
+	   {
+	   	  cin>>l>>r;
+	   	  l--;
+	   	  r--;
+	   	  ll ans=sum(0,0,n-1,l,r);
+	   	  cout<<ans<<endl;
+	   }
+   }
+   
+    
+	
+    	
+}
+
