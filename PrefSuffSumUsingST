@@ -1,0 +1,200 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+
+ ll arr[100005];
+
+struct node{
+     ll sum, pref, suff, ans;
+};
+node seg[400000];
+
+void build(ll nod,ll low,ll high)
+{
+	if(low==high)
+	{
+	node res;
+	ll val=arr[low];
+    res.sum = val;
+    ll z=0;
+    res.pref = res.suff = res.ans = max(z, val);
+    
+    seg[nod]=res;
+    
+		return;
+		
+		
+		
+	}
+	ll mid=(low+high)>>1;
+	build(2*nod+1,low,mid);
+	build(2*nod+2,mid+1,high);
+	
+	seg[nod].sum=seg[2*nod+1].sum+seg[2*nod+2].sum;
+	seg[nod].pref=max(seg[2*nod+1].pref,seg[2*nod+1].sum+seg[2*nod+2].pref);
+	seg[nod].suff=max(seg[2*nod+2].suff,seg[2*nod+2].sum+seg[2*nod+1].suff);
+	
+	seg[nod].ans=max(max(seg[2*nod+1].ans, seg[2*nod+2].ans), seg[2*nod+1].suff + seg[2*nod+2].pref);
+	
+	
+}
+
+void update(ll nod,ll low,ll high,ll ind,ll diff)
+{
+		if(low==high)
+	{
+	node res;
+	ll val=arr[low]+diff;
+    res.sum = val;
+    ll z=0;
+    res.pref = res.suff = res.ans = max(z, val);
+    
+    seg[nod]=res;
+    
+		return;
+		
+		
+		
+	}
+	ll mid=(low+high)>>1;
+	if(ind<=mid)
+	{
+		update(2*nod+1,low,mid,ind,diff);
+	}
+	else
+	update(2*nod+2,mid+1,high,ind,diff);
+	
+		seg[nod].sum=seg[2*nod+1].sum+seg[2*nod+2].sum;
+	seg[nod].pref=max(seg[2*nod+1].pref,seg[2*nod+1].sum+seg[2*nod+2].pref);
+	seg[nod].suff=max(seg[2*nod+2].suff,seg[2*nod+2].sum+seg[2*nod+1].suff);
+	
+	seg[nod].ans=max(max(seg[2*nod+1].ans, seg[2*nod+2].ans), seg[2*nod+1].suff + seg[2*nod+2].pref);
+	
+	
+	
+	
+}
+
+node query(ll nod,ll low,ll high,ll l,ll r)
+{
+	if(l>high||r<low||l>r)
+	{
+		node temp;
+		temp.sum=0;
+			temp.pref=0;
+			temp.suff=0;
+			temp.ans=0;
+			return temp;
+		
+		
+	}
+	if(low>=l&&high<=r)
+	{
+		
+		return seg[nod];
+		
+	}
+	ll mid=(low+high)>>1;
+	node ans1=query(2*nod+1,low,mid,l,r);
+	
+	node ans2=query(2*nod+2,mid+1,high,l,r);
+	
+	node answ;
+	
+		answ.sum=ans1.sum+ans2.sum;
+	answ.pref=max(ans1.pref,ans1.sum+ans2.pref);
+	answ.suff=max(ans2.suff,ans2.sum+ans1.suff);
+	
+	answ.ans=max(max(ans1.ans, ans2.ans), ans1.suff + ans2.pref);
+	
+	
+  return answ;
+		
+		
+	
+	
+	
+	
+}
+
+
+
+
+
+
+int main()
+{
+  
+   fio;
+   ll t,n,q,x,y,l,r,i,j;
+   cin>>t;
+   while(t--)
+   {
+   	  cin>>n>>q;
+   	 
+   	  for(i=0;i<n;i++)
+   	  {
+   	  	cin>>arr[i];
+		 }
+		 build(0,0,n-1);
+		 while(q--)
+		 {
+		 	char ch;
+		 	cin>>ch;
+		 	if(ch=='U')
+		 	{
+		 		ll ind,val;
+		 		cin>>ind>>val;
+		 		ind--;
+		 		ll diff=val-arr[ind];
+		 		update(0,0,n-1,ind,diff);
+		 		arr[ind]=val;
+			 }
+			 else
+			 {
+			 	cin>>l>>r;
+			 	l--;
+			 	r--;
+			 	ll ans=query(0,0,n-1,0,l-1).suff+query(0,0,n-1,l,r).sum+query(0,0,n-1,r+1,n-1).pref;
+			 	cout<<ans<<endl;
+			 }
+		 	
+		 	
+		 }
+		 
+   	
+   	
+   }
+		 
+		 
+}
+
+
+
+
+
+
+
+ 
