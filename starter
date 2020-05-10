@@ -18,6 +18,11 @@ using namespace std;
 #define bloop(i,a,b) for (int i = a ; i>=b;i--)
 #define MOD 1000000007
 #define INT_MAXI 9000000000000000000
+#define INT_MINI -9000000000000000000
+
+ll max(ll a, ll b) {if (a > b) return a; else return b;}
+ll min(ll a, ll b) {if (a < b) return a; else return b;}
+
 const int dx[4] = { -1, 1, 0, 0};
 const int dy[4] = {0, 0, -1, 1};
 int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
