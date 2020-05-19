@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+#define int long long int
+using namespace std;
+
+int fen[105][105][105];
+int maxi=103;
+
+
+void update(int r, int c, int k,int val)
+{
+    int i,j,l;
+	for (i = r; i <= maxi; i += i & -i)
+		for (j = c; j <= maxi; j += j & -j)
+		for(l=k;l<=maxi; l+= l & -l)
+			fen[i][j][l] += val;
+}
+
+int sum(int r, int c,int k)
+{
+	int i,j,s = 0,l;
+	for (i = r; i > 0; i &= i - 1)
+		for (j = c; j > 0; j &= j - 1)
+		 for(l=k;l>0; l &= l-1)
+			s += fen[i][j][l];
+	return s;
+}
+
+signed main()
+{
+	memset(fen,0,sizeof(fen));
+		
+	
+	
+	int n,q,i,j,x,y,z,val,X,Y,Z,total=0;
+	cin>>n>>q;
+	while(q--)
+	{
+		int type;
+		cin>>type;
+		if(type==1)
+		{
+			cin>>x>>y>>z>>val;
+			update(x+1,y+1,z+1,val);
+			total+=val;
+		}
+		else
+		{
+		//	cout<<total<<endl;
+			cin>>x>>y>>z>>X>>Y>>Z;
+			X++;
+			Y++;
+			Z++;
+			
+			int ans=sum(X,Y,Z);
+			ans-=sum(x,Y,Z);
+			ans-=sum(X,y,Z);
+			ans-=sum(X,Y,z);
+			ans+=sum(x,y,Z);
+			ans+=sum(x,Y,z);
+			ans+=sum(X,y,z);
+			ans-=sum(x,y,z);
+			ans=total-ans;
+			cout<<ans<<endl;
+			
+		}
+	}
+    
+}
+
+	
+	
