@@ -1,0 +1,101 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+#define INT_MINI -9000000000000000000
+
+ll max(ll a, ll b) {if (a > b) return a; else return b;}
+ll min(ll a, ll b) {if (a < b) return a; else return b;}
+
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+ll fen[100005]={0};
+ll maxi=100003;
+ void update(ll idx, ll k)
+{
+	while(idx<=maxi)
+	{
+		fen[idx]=max(fen[idx], k);
+		idx+=idx&-idx;
+	}
+}
+
+ll sum(ll idx)
+{
+	ll ans=0;
+	while(idx>0)
+	{
+		ans=max(ans, fen[idx]);
+		idx-=idx&-idx;
+	}
+	return ans;
+}
+
+
+int main()
+{
+	fio;
+    ll n,r,h,i,j;
+    cin>>n;
+    map<ll,ll>mpp,mpp2;
+    ll arr[n+5];
+    ll arr2[n+5];
+    ll rm[n+5];
+    vector<pii>vec;
+    
+    for(i=1;i<=n;i++)
+    {
+    	cin>>r;
+    	arr[i]=r;
+    	mpp[arr[i]];
+    	
+	}
+	ll ctr=0;
+     	for(auto &it:mpp)
+	{
+		it.second=++ctr;
+		rm[ctr]=it.first;
+	}
+	for(int i=1;i<=n;i++)
+		arr[i]=mpp[arr[i]];
+	
+	double ans=0;
+	for(i=1;i<=n;i++)
+	{
+		
+		
+	//	cout<<ind<<endl;
+		double z=sum(arr[i]-1)+rm[arr[i]];
+			update(arr[i],z);
+		ans=max(ans,(z));
+	
+	
+	}
+	
+	//	ans*=1.0*acosl(-1.0l);
+	cout<<fixed;
+	cout<<setprecision(12);
+	cout<<ans;
+	
+	
+	
+}
