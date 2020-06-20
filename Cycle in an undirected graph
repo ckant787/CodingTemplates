@@ -1,0 +1,141 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+#define INT_MINI -9000000000000000000
+
+ll max(ll a, ll b) {if (a > b) return a; else return b;}
+ll min(ll a, ll b) {if (a < b) return a; else return b;}
+
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+
+vector<ll>vec[100005];
+bool visited[100005];
+ll arr2[100005];
+ll cycle_start,cycle_end;
+ll parent[100005];
+ll n,m,k;
+
+bool dfs(ll node,ll par)
+{
+	
+	
+	for(auto itr:vec[node])
+	{
+		
+		if(!visited[itr])
+		{
+			visited[itr]=true;
+			parent[itr]=node;
+			arr2[itr]=arr2[node]+1;
+			if(dfs(itr,node))
+			return true;
+		}
+		else
+		{
+			ll diff=abs(arr2[itr]-arr2[node])+1;
+			if(diff>=k)
+			{
+				cycle_end=node;
+				cycle_start=itr;
+				return true;
+				
+				
+			}
+			
+			
+		}
+		
+		
+	}
+	return false;
+	
+	
+	
+	
+}
+
+
+int main()
+{
+	
+  
+ 
+	fio;
+	ll i,j,l,r,flag=0,x,a,b;
+	
+	cin>>n>>m>>k;
+	k++;
+	
+	for(i=0;i<m;i++)
+	{
+		cin>>a>>b;
+		vec[a].pb(b);
+		vec[b].pb(a);
+	}
+	memset(visited,false,sizeof(visited));
+	memset(arr2,0,sizeof(arr2));
+	
+	for(i=1;i<=n;i++)
+	{
+		
+		if(!visited[i])
+		{
+			visited[i]=true;
+			arr2[i]=1;
+			
+			if(dfs(i,0))
+			{
+				break;
+			}
+			
+		}
+		
+		
+		
+	}
+	vi ans;
+	while(cycle_end!=cycle_start)
+	{
+		ans.pb(cycle_end);
+		cycle_end=parent[cycle_end];
+	}
+	ans.pb(cycle_start);
+	cout<<ans.size()<<endl;
+	for(i=0;i<ans.size();i++)
+	{
+		cout<<ans[i]<<" ";
+	}
+	
+}
+	
+	
+	
+	
+    
+	
+	
+    
+    
+	
+
