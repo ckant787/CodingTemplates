@@ -50,17 +50,16 @@ void convert(ll arr[], ll n)
         arr[i] = umap[arr[i]]; 
 } 
 
-void func100()
+
+ll arr100[100];
+for(ll hg=0;hg<100;hg++)
 {
-ll arr[100];
-for(i=0;i<100;i++)
-{
-update(i+1,1);
-arr[i]=i;
+update(hg+1,1);
+arr[hg]=hg;
 }
-convert(arr,100);
+convert(arr100,100);
 
 
 
-}
+
 
