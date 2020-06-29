@@ -1,0 +1,56 @@
+// Function to update any index 
+//initialize fen to 0;
+ll fen[100005]={0};
+ll maxi100=100003;
+ void update(ll ind, ll val)
+{
+	for(ll i = ind;i<=maxi100; i+= i & -i)
+		fen[i] += val;
+}
+
+// Function to get the prefix sum or suffix sum 
+ll sum(ll ind)
+{
+	ll s = 0; 
+	for(ll i = ind; i ; i-= i& -i)
+		s +=fen[i]; 
+
+	return s; 
+}
+
+/*Given an array with n distinct elements, convert the given array to a form where all elements are in range from 0 to n-1.
+The order of elements is same, i.e., 0 is placed in place of smallest element, 1 is placed for second smallest element,
+… n-1 is placed for largest element.*/
+
+
+void convert(ll arr[], ll n) 
+{ 
+    // Create a temp array and copy contents 
+    // of arr[] to temp 
+    ll temp[n]; 
+    memcpy(temp, arr, n*sizeof(ll)); 
+  
+    // Sort temp array 
+    sort(temp, temp + n); 
+  
+    // Create a hash table. Refer  
+    // http://tinyurl.com/zp5wgef  
+    unordered_map<ll, ll> umap; 
+  
+    // One by one insert elements of sorted 
+    // temp[] and assign them values from 0 
+    // to n-1 
+    ll val = 0; 
+    for (ll i = 0; i < n; i++) 
+        umap[temp[i]] = val++; 
+  
+    // Convert array by taking positions from 
+    // umap 
+    for (ll i = 0; i < n; i++) 
+        arr[i] = umap[arr[i]]; 
+} 
+
+
+for(i=0;i<100;i++)
+update(i+1,1);
+
