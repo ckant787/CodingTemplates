@@ -55,7 +55,7 @@ ll arr100[5];
 for(ll hg=0;hg<5;hg++)
 {
 update(hg+1,1);
-arr[hg]=hg;
+arr100[hg]=hg;
 }
 convert(arr100,5);
 
