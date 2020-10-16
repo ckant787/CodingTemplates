@@ -9,7 +9,7 @@ ll maxi100=100003;
 }
 
 // Function to get the prefix sum or suffix sum 
-ll sum(ll ind)
+(ll ind)
 {
 	ll s = 0; 
 	for(ll i = ind; i ; i-= i& -i)
