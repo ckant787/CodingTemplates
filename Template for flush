@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+#define INT_MINI -9000000000000000000
+
+ll max(ll a, ll b) {if (a > b) return a; else return b;}
+ll min(ll a, ll b) {if (a < b) return a; else return b;}
+
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+
+int main()
+{
+
+	fio;
+	ll t,i,j,u,v,m,r,c,n,k;
+	cin>>n;
+	  
+    ll arr[n];
+    ll val1,val2,val3,val4;
+    cout<<"OR 1 2"<<endl;
+     cout.flush();
+    cin>>val1;
+       
+    cout<<"AND 1 2"<<endl;
+    cout.flush();
+    cin>>val2;
+	
+    
+	
+	
+}
