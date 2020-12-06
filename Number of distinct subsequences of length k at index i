@@ -1,0 +1,125 @@
+#include<bits/stdc++.h>
+#define ll long long int
+using namespace std;
+#define fio ios_base::sync_with_stdio(false), cin.tie(NULL), cout.tie(NULL)
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define endl "\n"
+#define maxpq priority_queue<ll>
+#define minpq priority_queue<ll, vector<ll>, greater<ll> >
+#define vi vector<ll>
+#define pii pair<ll, ll>
+#define vii vector<pii>
+#define for0(i, n) for (int i = 0; i < n; i++)
+#define for1(i, n) for (int i = 1; i <= n; i++)
+#define loop(i,a,b) for (int i = a; i < b; i++)
+#define bloop(i,a,b) for (int i = a ; i>=b;i--)
+#define MOD 1000000007
+#define INT_MAXI 9000000000000000000
+#define INT_MINI -9000000000000000000
+
+ll max(ll a, ll b) {if (a > b) return a; else return b;}
+ll min(ll a, ll b) {if (a < b) return a; else return b;}
+
+const int dx[4] = { -1, 1, 0, 0};
+const int dy[4] = {0, 0, -1, 1};
+int XX[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+int YY[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
+
+ll dp[105][105];
+
+
+int main()
+{
+   memset(dp,0,sizeof(dp));
+	fio;
+	ll t,i,j,u,v,m,r,c,k,q,x,y,w,n,b;
+	cin>>n>>k;
+	ll temp=k;
+	string str;
+	cin>>str;
+	map<char,ll>mpp;
+	for(i=0;i<str.length();i++)
+	{
+		if(mpp.count(str[i])==0)
+		{
+			mpp[str[i]]=1;
+			dp[i][1]=1;
+		}
+	}
+   for(i=2;i<=n;i++)
+   {
+   	  mpp.clear();
+   	  for(j=0;j<str.length();j++)
+   	  {
+   	  		ll sum=0;
+   	  	 if(mpp.count(str[j])==0)
+   	  	 {
+   	  
+   	  	 	for(k=0;k<j;k++)
+   	  	 	sum+=dp[k][i-1];
+   	  	 	
+   	  	 	
+			  }
+			  else
+			  {
+			  	 for(k=mpp[str[j]];k<j;k++)
+			  	 {
+			  	 	sum+=dp[k][i-1];
+				   }
+			  	
+			  }
+			  	 mpp[str[j]]=j;
+			  	 dp[j][i]=sum;
+   	  	
+   	  	
+   	  	
+		 }
+   	
+   	
+   	
+   	
+   	
+   }
+   ll ans=0;
+   k=temp;
+   for(i=n;i>=1;i--)
+   {
+   	  ll sum=0;
+   	  for(j=0;j<str.length();j++)
+   	  {
+   	  	sum+=dp[j][i];
+		 }
+	//	 cout<<sum<<" "<<k<<endl;
+		 if(sum<=k)
+		 {
+		 	k-=sum;
+		 	ans+=(n-i)*(sum);
+		 	
+		 }
+		 else
+		 {
+		 	ans+=(n-i)*k;
+		 	k=0;
+		 	break;
+		 }
+   	    
+   	
+   }
+   if(k==1)
+   {
+   	ans+=n;
+   	k=0;
+   }
+   if(k>0)
+   {
+   	cout<<"-1";
+   }
+   else
+   cout<<ans;
+   
+      
+      
+}
